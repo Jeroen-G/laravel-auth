@@ -1,0 +1,29 @@
+{
+    "name": "jeroen-g/laravel-auth",
+    "description": "A simple extension of laravel's authentication.",
+    "license": "EUPL-1.1",
+    "authors": [
+        {
+            "name": "Jeroen G",
+            "email": "jeroeng.jeroeng@gmail.com"
+        }
+    ],
+    "keywords": ["Laravel", "auth", "authentication", "users", "login"],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "orchestra/testbench": "2.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "JeroenG\\LaravelAuth\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
