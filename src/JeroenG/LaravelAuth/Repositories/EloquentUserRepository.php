@@ -38,7 +38,7 @@ class EloquentUserRepository implements UserRepository {
 		$permissions = User::find($userId)->permissions;
 		foreach ($permissions as $entry)
 		{
-			if($entry->name == $role)
+			if($entry->name == $permission)
 			{
 				return true;
 			}
