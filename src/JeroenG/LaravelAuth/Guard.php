@@ -47,7 +47,7 @@ class Guard extends \Illuminate\Auth\Guard {
 				break;
 			
 			case 'json':
-				return $this->roles->all()->toJson;
+				return $this->roles->all()->toJson();
 				break;
 
 			case 'text':
@@ -91,7 +91,7 @@ class Guard extends \Illuminate\Auth\Guard {
 				break;
 			
 			case 'json':
-				return $this->permissions->all()->toJson;
+				return $this->permissions->all()->toJson();
 				break;
 
 			case 'text':
