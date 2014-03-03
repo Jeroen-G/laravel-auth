@@ -53,14 +53,13 @@ class Guard extends \Illuminate\Auth\Guard {
 
 			case 'text':
 				$roles = $this->roles->all();
+				$rolesArray = $roles->toArray();
 				$string = '';
-				$count =  count($roles);
+				$count =  count($rolesArray);
 				// These three lines are for setting the pointer to the last element of the array...
-				end($roles);
-				// Then save the key number of that element...
-				$last = max(array_keys($roles->toArray()));
-				// And then go back to the beginning.
-				reset($roles);
+				end($rolesArray);
+				// Then save the key number of that element.
+				$last = max(array_keys($rolesArray));
 
 				//var_dump($last);
 				for ($i=0; $i < $count; $i++)
@@ -95,14 +94,13 @@ class Guard extends \Illuminate\Auth\Guard {
 
 			case 'text':
 				$permissions = $this->permissions->all();
+				$permissionsArray = $permissions->toArray();
 				$string = '';
-				$count =  count($permissions);
+				$count =  count($permissionsArray);
 				// These three lines are for setting the pointer to the last element of the array...
-				end($permissions);
-				// Then save the key number of that element...
-				$last = max(array_keys($permissions->toArray()));
-				// And then go back to the beginning.
-				reset($permissions);
+				end($permissionsArray);
+				// Then save the key number of that element.
+				$last = max(array_keys($permissionsArray));
 
 				//var_dump($last);
 				for ($i=0; $i < $count; $i++)
