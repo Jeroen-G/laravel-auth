@@ -44,15 +44,12 @@ class Guard extends \Illuminate\Auth\Guard {
 		switch ($format) {
 			case 'object':
 				return $this->roles->all();
-				break;
 
 			case 'array':
 				return $this->roles->all()->toArray();
-				break;
 			
 			case 'json':
 				return $this->roles->all()->toJson();
-				break;
 
 			case 'text':
 				$roles = $this->roles->all();
@@ -78,11 +75,9 @@ class Guard extends \Illuminate\Auth\Guard {
 					}
 				}
 				return $string;
-				break;
 
 			default:
 				return $this->roles->all();
-				break;
 		}
 	}
 
@@ -91,15 +86,12 @@ class Guard extends \Illuminate\Auth\Guard {
 		switch ($format) {
 			case 'object':
 				return $this->permissions->all();
-				break;
 
 			case 'array':
 				return $this->permissions->all()->toArray();
-				break;
 			
 			case 'json':
 				return $this->permissions->all()->toJson();
-				break;
 
 			case 'text':
 				$permissions = $this->permissions->all();
@@ -125,11 +117,9 @@ class Guard extends \Illuminate\Auth\Guard {
 					}
 				}
 				return $string;
-				break;
 
 			default:
 				return $this->permissions->all();
-				break;
 		}
 	}
 
