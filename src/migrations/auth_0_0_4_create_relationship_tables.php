@@ -17,7 +17,6 @@ class CreateRelationshipTables extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index();
 			$table->integer('role_id')->unsigned()->index();
-			$table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users');
             $table->foreign('role_id')->references('id')->on('roles');
@@ -28,7 +27,6 @@ class CreateRelationshipTables extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index();
 			$table->integer('permission_id')->unsigned()->index();
-			$table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users');
             $table->foreign('permission_id')->references('id')->on('permissions');
@@ -39,7 +37,6 @@ class CreateRelationshipTables extends Migration {
 			$table->increments('id');
 			$table->integer('role_id')->unsigned()->index();
 			$table->integer('permission_id')->unsigned()->index();
-			$table->timestamps();
 
 			$table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('permission_id')->references('id')->on('permissions');
