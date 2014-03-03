@@ -18,4 +18,9 @@ class EloquentRoleRepository implements RoleRepository {
 	{
 		return Role::create($input);
 	}
+
+	public function getRoleId($roleName)
+	{
+		return Role::select('id')->where('name', $roleName)->first();
+	}
 }

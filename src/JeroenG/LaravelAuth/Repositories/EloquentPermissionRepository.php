@@ -31,4 +31,9 @@ class EloquentPermissionRepository implements PermissionRepository {
                 }
         return $perms;
 	}
+
+	public function getPermissionId($permissionName)
+	{
+		return Permission::select('id')->where('name', $permissionName)->first();
+	}
 }

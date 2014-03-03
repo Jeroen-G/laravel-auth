@@ -125,7 +125,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	{
 		if($this->check())
 		{
-			if(is_null($userId)) $userId = $this->user->id;
+			if(is_null($userId)) $userId = $this->user()->id;
 			if($this->users->isAdmin($userId))
 			{
 				return true;
@@ -136,27 +136,37 @@ class Guard extends \Illuminate\Auth\Guard {
 
 	public function can($permission, $userId = null)
 	{
-		if($this->check())
+		if(is_null($userId)) $userId = $this->user()->id;
+		if($this->users->hasPermission($userId, $permission))
 		{
-			if(is_null($userId)) $userId = $this->user->id;
-			if($this->users->hasPermission($userId, $permission))
-			{
-				return true;
-			}
-			return false;
+			return true;
 		}
+		return false;
 	}
 
 	public function is($role, $userId = null)
 	{
-		if($this->check())
+		if(is_null($userId)) $userId = $this->user()->id;
+		if($this->users->hasRole($userId, $role))
 		{
-			if(is_null($userId)) $userId = $this->user->id;
-			if($this->users->hasRole($userId, $role))
-			{
-				return true;
-			}
-			return false;
+			return true;
 		}
+		return false;
+	}
+
+	public function giveRole($roleName, $userId = null)
+	{
+		if(is_null($userId)) $userId = $this->user()->id;
+		if($this->is($roleName, $userId)) return;
+		$roleId = $this->roles->getRoleId($roleName);
+		$this->users->giveRole($userId, $roleId);
+	}
+
+	public function givePermission($permissionName, $userId = null)
+	{
+		if(is_null($userId)) $userId = $this->user()->id;
+		if($this->can($permissionName, $userId)) return;
+		$permissionId = $this->permissions->getPermissionId($permissionName);
+		$this->users->givePermission($userId, $permissionId);
 	}
 }

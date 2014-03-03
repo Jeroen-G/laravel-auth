@@ -60,4 +60,16 @@ class EloquentUserRepository implements UserRepository {
 	{
 		return $this->hasRole($userId, 'Admin');
 	}
+
+	public function giveRole($userId, $roleId)
+	{
+		$user = User::find($userId);
+		return $user->roles()->attach($roleId);
+	}
+
+	public function givePermission($userId, $permissionId)
+	{
+		$user = User::find($userId);
+		return $user->permissions()->attach($permissionId);
+	}
 }

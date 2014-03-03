@@ -150,7 +150,7 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * Test if the first user has a permission.
+     * Test if the first user has a role.
      *
      * @test
      */
@@ -158,6 +158,18 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     {
         $this->login(1);
         $output = \Auth::is('Admin');
+        $this->assertTrue($output);
+    }
+
+    /**
+     * Test if the second user has a permission while being the admin.
+     *
+     * @test
+     */
+    public function testAnotherHasPermission()
+    {
+        $this->login(1);
+        $output = \Auth::can('edit', 2);
         $this->assertTrue($output);
     }
 
@@ -209,5 +221,29 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         // Text
         $output_text = \Auth::permissions('text');
         $this->assertContains('edit', $output_text, "Getting the permissions as text failed");
+    }
+
+    /**
+     * Test giving the second user a role.
+     *
+     * @test
+     */
+    public function testGivingRole()
+    {
+        \Auth::giveRole('Admin', 2);
+        $output = \Auth::is('Admin', 2);
+        $this->assertTrue($output);
+    }
+
+    /**
+     * Test giving the first user a permission.
+     *
+     * @test
+     */
+    public function testGivingPermission()
+    {
+        \Auth::givePermission('edit', 1);
+        $output = \Auth::can('edit', 1);
+        $this->assertTrue($output);
     }
 }
