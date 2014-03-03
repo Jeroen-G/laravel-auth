@@ -21,12 +21,12 @@ class LaravelAuthServiceProvider extends ServiceProvider {
 		$this->package('jeroen-g/laravel-auth');
 
 		// Extending the default Auth of Laravel.
-		\Auth::extend('eloquent', function()
+		\Auth::extend('eloquent', function($app)
 		{
 			// Retrieving the user model.
-			$model = $this->app['config']['auth.model'];
+			$model = $app['config']['auth.model'];
 			// Creating an Eloquent provider for the Guard class, which requires the app's hashing class and model from above.
-        	$provider = new Providers\EloquentUserProvider($this->app['hash'], $model);
+        	$provider = new Providers\EloquentUserProvider($app['hash'], $model);
         	// This creates the new, extended Guard class, really the core of this package. It requires the app's session storage class.
 			return new Guard($provider, \App::make('session.store'));
 		});
