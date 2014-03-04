@@ -65,29 +65,29 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         \DB::table('users')->insert(array(
             'username' => 'jeroen',
             'password' => \Hash::make('secret'),
-            'created_at' => new \DateTime,
-            'updated_at' => new \DateTime,
+            'created_at' => '2014-01-01 00:00:00',
+            'updated_at' => '2014-01-01 00:00:00',
         ));
 
         \DB::table('users')->insert(array(
             'username' => 'foobar',
             'password' => \Hash::make('secret'),
-            'created_at' => new \DateTime,
-            'updated_at' => new \DateTime,
+            'created_at' => '2014-01-01 00:00:00',
+            'updated_at' => '2014-01-01 00:00:00',
         ));
 
         \DB::table('roles')->insert(array(
             'name' => 'Admin',
             'description' => 'One Role To Rule Them All',
-            'created_at' => new \DateTime,
-            'updated_at' => new \DateTime,
+            'created_at' => '2014-01-01 00:00:00',
+            'updated_at' => '2014-01-01 00:00:00',
         ));
 
         \DB::table('permissions')->insert(array(
             'name' => 'edit',
             'description' => 'Ability to edit things',
-            'created_at' => new \DateTime,
-            'updated_at' => new \DateTime,
+            'created_at' => '2014-01-01 00:00:00',
+            'updated_at' => '2014-01-01 00:00:00',
         ));
 
         \DB::table('role_user')->insert(array(
