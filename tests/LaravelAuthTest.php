@@ -65,6 +65,7 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         \DB::table('users')->insert(array(
             'username' => 'jeroen',
             'password' => \Hash::make('secret'),
+            'email'    => 'jeroen@example.com',
             'created_at' => '2014-01-01 00:00:00',
             'updated_at' => '2014-01-01 00:00:00',
         ));
@@ -72,6 +73,7 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         \DB::table('users')->insert(array(
             'username' => 'foobar',
             'password' => \Hash::make('secret'),
+            'email'    => 'foobar@example.com',
             'created_at' => '2014-01-01 00:00:00',
             'updated_at' => '2014-01-01 00:00:00',
         ));
