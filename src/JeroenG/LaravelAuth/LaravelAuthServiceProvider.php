@@ -2,6 +2,16 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * This is the service provider for Laravel.
+ *
+ * Place the line below in the providers array inside app/config/app.php
+ * <code>'JeroenG\LaravelAuth\LaravelAuthServiceProvider',</code>
+ *
+ * @package LaravelAuth
+ * @author 	JeroenG
+ * 
+ **/
 class LaravelAuthServiceProvider extends ServiceProvider {
 
 	/**

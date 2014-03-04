@@ -3,6 +3,14 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
+/**
+ * This is the user model, it is used to retrieve user data from the database.
+ * 
+ * @package LaravelAuth
+ * @subpackage Models
+ * @author 	JeroenG
+ * 
+ **/
 class User extends \Eloquent implements UserInterface, RemindableInterface{
 
 	/**
@@ -19,19 +27,24 @@ class User extends \Eloquent implements UserInterface, RemindableInterface{
 	 */
 	protected $hidden = array('password');
 
+	/**
+	 * Access all of the permissions that belong to a user.
+	 *
+	 * @return void
+	 */
 	public function permissions()
 	{
 		return $this->belongsToMany('JeroenG\LaravelAuth\Models\Permission');
 	}
 
+	/**
+	 * Access all of the roles that belong to a user.
+	 *
+	 * @return void
+	 */
 	public function roles()
 	{
 		return $this->belongsToMany('JeroenG\LaravelAuth\Models\Role');
-	}
-
-	public function test()
-	{
-		return true;
 	}
 
 	/**

@@ -4,8 +4,23 @@ use Illuminate\Auth\UserProviderInterface;
 use Illuminate\Hashing\HasherInterface;
 use Illuminate\Auth\UserInterface;
 
+/**
+ * This class extends the standard provider and overrides the validation function.
+ *
+ * @package LaravelAuth
+ * @subpackage Providers
+ * @author JeroenG
+ * 
+ **/
 class EloquentUserProvider extends \Illuminate\Auth\EloquentUserProvider implements UserProviderInterface {
 
+    /**
+     * Create a new database user provider.
+     *
+     * @param  \Illuminate\Hashing\HasherInterface  $hasher
+     * @param  string  $model
+     * @return void
+     */
     public function __construct(HasherInterface $hasher, $model)
     {
         $this->model = $model;
@@ -15,7 +30,7 @@ class EloquentUserProvider extends \Illuminate\Auth\EloquentUserProvider impleme
     /**
      * Validate a user against the given credentials.
      *
-     * @param  Illuminate\Auth\UserInterface  $user
+     * @param  \Illuminate\Auth\UserInterface  $user
      * @param  array  $credentials
      * @return bool
      */

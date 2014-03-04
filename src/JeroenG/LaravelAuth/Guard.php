@@ -3,6 +3,13 @@
 use Illuminate\Auth\UserProviderInterface;
 use Illuminate\Session\Store as SessionStore;
 
+/**
+ * This class is the core of the package. Everything is handles through here. It extends the existing Auth class of Laravel.
+ *
+ * @package LaravelAuth
+ * @author 	JeroenG
+ * 
+ **/
 class Guard extends \Illuminate\Auth\Guard {
 
 	/**
@@ -39,6 +46,12 @@ class Guard extends \Illuminate\Auth\Guard {
 		$this->users = \App::make('Repositories\UserRepository');
 	}
 
+	/**
+	 * Retrieve all roles, available in different formats.
+	 *
+	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @return mixed
+	 **/
 	public function roles($format = 'array')
 	{
 		switch ($format) {
@@ -80,6 +93,12 @@ class Guard extends \Illuminate\Auth\Guard {
 		}
 	}
 
+	/**
+	 * Retrieve all permissions, available in different formats.
+	 *
+	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @return mixed
+	 **/
 	public function permissions($format = 'array')
 	{
 		switch ($format) {
@@ -121,6 +140,12 @@ class Guard extends \Illuminate\Auth\Guard {
 		}
 	}
 
+	/**
+	 * Find out if the user has the 'Admin' role.
+	 *
+	 * @param int $userId The id of the user, if null is given the user logged in is used.
+	 * @return boolean
+	 **/
 	public function isAdmin($userId = null)
 	{
 		if($this->check())
@@ -134,6 +159,13 @@ class Guard extends \Illuminate\Auth\Guard {
 		}
 	}
 
+	/**
+	 * Find out if the user has a certain permission.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param string $permission The permission to look for.
+	 * @return boolean
+	 **/
 	public function can($permission, $userId = null)
 	{
 		if(is_null($userId)) $userId = $this->user()->id;
@@ -144,6 +176,13 @@ class Guard extends \Illuminate\Auth\Guard {
 		return false;
 	}
 
+	/**
+	 * Find out if the user has a certain role.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param string $role The role to look for.
+	 * @return boolean
+	 **/
 	public function is($role, $userId = null)
 	{
 		if(is_null($userId)) $userId = $this->user()->id;
@@ -154,6 +193,13 @@ class Guard extends \Illuminate\Auth\Guard {
 		return false;
 	}
 
+	/**
+	 * Assign a user a new role.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param int $roleId The id of the role.
+	 * @return void
+	 **/
 	public function giveRole($roleName, $userId = null)
 	{
 		if(is_null($userId)) $userId = $this->user()->id;
@@ -162,6 +208,13 @@ class Guard extends \Illuminate\Auth\Guard {
 		$this->users->giveRole($userId, $roleId);
 	}
 
+	/**
+	 * Assign a user a new permission.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param int $permissionId The id of the permission.
+	 * @return void
+	 **/
 	public function givePermission($permissionName, $userId = null)
 	{
 		if(is_null($userId)) $userId = $this->user()->id;
@@ -170,6 +223,13 @@ class Guard extends \Illuminate\Auth\Guard {
 		$this->users->givePermission($userId, $permissionId);
 	}
 
+	/**
+	 * Remove a role from a user.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param int $roleId The id of the role.
+	 * @return void
+	 **/
 	public function takeRole($roleName, $userId = null)
 	{
 		if(is_null($userId)) $userId = $this->user()->id;
@@ -180,6 +240,13 @@ class Guard extends \Illuminate\Auth\Guard {
 		}
 	}
 
+	/**
+	 * Remove a permission from a user.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param int $permissionId The id of the permission.
+	 * @return void
+	 **/
 	public function takePermission($permissionName, $userId = null)
 	{
 		if(is_null($userId)) $userId = $this->user()->id;
