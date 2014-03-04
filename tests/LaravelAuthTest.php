@@ -246,4 +246,28 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         $output = \Auth::can('edit', 1);
         $this->assertTrue($output);
     }
+
+    /**
+     * Test taking the second user a role.
+     *
+     * @test
+     */
+    public function testTakingRole()
+    {
+        \Auth::takeRole('Admin', 2);
+        $output = \Auth::is('Admin', 2);
+        $this->assertFalse($output);
+    }
+
+    /**
+     * Test taking the first user a permission.
+     *
+     * @test
+     */
+    public function testTakingPermission()
+    {
+        \Auth::takePermission('edit', 1);
+        $output = \Auth::can('edit', 1);
+        $this->assertFalse($output);
+    }
 }

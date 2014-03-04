@@ -67,9 +67,21 @@ class EloquentUserRepository implements UserRepository {
 		return $user->roles()->attach($roleId);
 	}
 
+	public function takeRole($userId, $roleId)
+	{
+		$user = User::find($userId);
+		return $user->roles()->detach($roleId);
+	}
+
 	public function givePermission($userId, $permissionId)
 	{
 		$user = User::find($userId);
 		return $user->permissions()->attach($permissionId);
+	}
+
+	public function takePermission($userId, $permissionId)
+	{
+		$user = User::find($userId);
+		return $user->permissions()->detach($permissionId);
 	}
 }
