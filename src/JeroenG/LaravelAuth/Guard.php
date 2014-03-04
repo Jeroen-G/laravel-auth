@@ -162,7 +162,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Find out if the user has a certain permission.
 	 *
-	 * @param int $userId The id of the user.
+	 * @param int $userId The id of the user, if null is given the user logged in is used.
 	 * @param string $permission The permission to look for.
 	 * @return boolean
 	 **/
@@ -179,7 +179,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Find out if the user has a certain role.
 	 *
-	 * @param int $userId The id of the user.
+	 * @param int $userId The id of the user, if null is given the user logged in is used.
 	 * @param string $role The role to look for.
 	 * @return boolean
 	 **/
@@ -196,8 +196,8 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Assign a user a new role.
 	 *
-	 * @param int $userId The id of the user.
-	 * @param int $roleId The id of the role.
+	 * @param int $userId The id of the user, if null is given the user logged in is used.
+	 * @param string $roleName The name of the role.
 	 * @return void
 	 **/
 	public function giveRole($roleName, $userId = null)
@@ -211,8 +211,8 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Assign a user a new permission.
 	 *
-	 * @param int $userId The id of the user.
-	 * @param int $permissionId The id of the permission.
+	 * @param int $userId The id of the user, if null is given the user logged in is used.
+	 * @param string $permissionName The name of the permission.
 	 * @return void
 	 **/
 	public function givePermission($permissionName, $userId = null)
@@ -226,7 +226,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Remove a role from a user.
 	 *
-	 * @param int $userId The id of the user.
+	 * @param int $userId The id of the user, if null is given the user logged in is used.
 	 * @param int $roleId The id of the role.
 	 * @return void
 	 **/
@@ -243,7 +243,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Remove a permission from a user.
 	 *
-	 * @param int $userId The id of the user.
+	 * @param int $userId The id of the user, if null is given the user logged in is used.
 	 * @param int $permissionId The id of the permission.
 	 * @return void
 	 **/
