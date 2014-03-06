@@ -18,6 +18,13 @@ class Permission extends \Eloquent {
 	protected $table = 'permissions';
 
 	/**
+	 * Enabling soft-deleting.
+	 *
+	 * @var boolean
+	 */
+	protected $softDelete = true;
+
+	/**
 	 * Access all of the roles that belong to a permission.
 	 *
 	 * @return void

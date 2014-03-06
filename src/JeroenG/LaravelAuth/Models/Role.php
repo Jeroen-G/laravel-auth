@@ -18,6 +18,13 @@ class Role extends \Eloquent {
 	protected $table = 'roles';
 
 	/**
+	 * Enabling soft-deleting.
+	 *
+	 * @var boolean
+	 */
+	protected $softDelete = true;
+	
+	/**
 	 * Access all of the permissions that belong to a role.
 	 *
 	 * @return void
