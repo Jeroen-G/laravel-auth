@@ -24,7 +24,7 @@ interface RoleRepository {
 	 *
 	 * @param string $roleName Name of the role.
 	 * @param text $description Description of the role (max 255 characters).
-	 * @param smallint $level The importance of the role (in comparison to others).
+	 * @param int $level The importance of the role (in comparison to others).
 	 * @return void
 	 **/
 	public function addRole($roleName, $description, $level);

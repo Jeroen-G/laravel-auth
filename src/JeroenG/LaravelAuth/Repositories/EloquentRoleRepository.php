@@ -29,9 +29,6 @@ class EloquentRoleRepository implements RoleRepository {
 			
 			case 'json':
 				return Role::all()->toJson();
-
-			default:
-				return Role::all();
 		}
 	}
 

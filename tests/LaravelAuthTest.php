@@ -140,7 +140,19 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     }
 
     /**
-     * Test if the first user has a permission.
+     * Test if the first user has not a permission.
+     *
+     * @test
+     */
+    public function testHasNoPermission()
+    {
+        $this->login(1);
+        $output = \Auth::can('edit');
+        $this->assertFalse($output);
+    }
+
+    /**
+     * Test if the second user has a permission.
      *
      * @test
      */
@@ -161,6 +173,18 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         $this->login(1);
         $output = \Auth::is('Admin');
         $this->assertTrue($output);
+    }
+
+    /**
+     * Test if the second user has not a role.
+     *
+     * @test
+     */
+    public function testHasNoRole()
+    {
+        $this->login(2);
+        $output = \Auth::is('Admin');
+        $this->assertFalse($output);
     }
 
     /**
@@ -215,6 +239,8 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         // Object
         $output_object = \Auth::allPermissions('object');
         $this->assertContains('edit', $output_object[0]->name, "Getting the permissions as object failed");
+
+        // Default
     }
 
     /**
@@ -260,8 +286,8 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
      */
     public function testTakingRole()
     {
-        \Auth::takeRole('Admin', 2);
-        $output = \Auth::is('Admin', 2);
+        \Auth::takeRole('Admin', 1);
+        $output = \Auth::is('Admin', 1);
         $this->assertFalse($output);
     }
 
@@ -272,8 +298,8 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
      */
     public function testTakingPermission()
     {
-        \Auth::takePermission('edit', 1);
-        $output = \Auth::can('edit', 1);
+        \Auth::takePermission('edit', 2);
+        $output = \Auth::can('edit', 2);
         $this->assertFalse($output);
     }
 

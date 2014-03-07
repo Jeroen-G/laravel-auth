@@ -29,9 +29,6 @@ class EloquentPermissionRepository implements PermissionRepository {
 			
 			case 'json':
 				return Permission::all()->toJson();
-
-			default:
-				return Permission::all();
 		}
 	}
 	

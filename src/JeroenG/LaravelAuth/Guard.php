@@ -211,7 +211,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	public function takePermission($permissionName, $userId = null)
 	{
 		if(is_null($userId)) $userId = $this->user()->id;
-		if($this->is($permissionName, $userId))
+		if($this->can($permissionName, $userId))
 		{
 			$permissionId = $this->permissions->getPermissionId($permissionName);
 			$this->users->takePermission($userId, $permissionId);

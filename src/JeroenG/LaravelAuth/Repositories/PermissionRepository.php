@@ -24,7 +24,6 @@ interface PermissionRepository {
 	 *
 	 * @param string $permissionName Name of the permission.
 	 * @param text $description Description of the permission (max 255 characters).
-	 * @param int $level The importance of the permission (in comparison to others).
 	 * @return void
 	 **/
 	public function addPermission($permissionName, $description);
