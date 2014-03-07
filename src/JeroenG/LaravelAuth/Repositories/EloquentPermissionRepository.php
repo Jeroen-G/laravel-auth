@@ -80,7 +80,7 @@ class EloquentPermissionRepository implements PermissionRepository {
 	 **/
 	public function getPermissionId($permissionName)
 	{
-		return Permission::select('id')->where('name', '=', $permissionName)->first();
+		return Permission::select('id')->where('name', '=', $permissionName)->first()->id;
 	}
 
 	/**

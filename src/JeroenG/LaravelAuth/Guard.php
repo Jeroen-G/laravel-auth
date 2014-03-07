@@ -187,7 +187,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	{
 		$permissionId = $this->permissions->getPermissionId($permissionName);
 		$roleId = $this->roles->getRoleId($roleName);
-		if($this->roles->hasPermission($roleId->id, $permissionId->id))
+		if($this->roles->hasPermission($roleId, $permissionId))
 		{
 			return true;
 		}
@@ -253,7 +253,7 @@ class Guard extends \Illuminate\Auth\Guard {
 		if($this->roleCan($roleName, $permissionName)) return;
 		$permissionId = $this->permissions->getPermissionId($permissionName);
 		$roleId = $this->roles->getRoleId($roleName);
-		$this->roles->givePermission($roleId->id, $permissionId);
+		$this->roles->givePermission($roleId, $permissionId);
 	}
 
 	/**
@@ -301,7 +301,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	{
 		$permissionId = $this->permissions->getPermissionId($permissionName);
 		$roleId = $this->roles->getRoleId($roleName);
-		$this->roles->takePermission($roleId->id, $permissionId);
+		$this->roles->takePermission($roleId, $permissionId);
 	}
 
 	/**
