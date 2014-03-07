@@ -194,10 +194,6 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         // Object
         $output_object = \Auth::allRoles('object');
         $this->assertContains('Admin', $output_object[0]->name, "Getting the roles as object failed");
-
-        // Text
-        $output_text = \Auth::allRoles('text');
-        $this->assertContains('Admin', $output_text, "Getting the roles as text failed");
     }
 
     /**
@@ -219,10 +215,6 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         // Object
         $output_object = \Auth::allPermissions('object');
         $this->assertContains('edit', $output_object[0]->name, "Getting the permissions as object failed");
-
-        // Text
-        $output_text = \Auth::allPermissions('text');
-        $this->assertContains('edit', $output_text, "Getting the permissions as text failed");
     }
 
     /**
