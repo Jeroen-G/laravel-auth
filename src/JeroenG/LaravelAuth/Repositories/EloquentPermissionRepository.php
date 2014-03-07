@@ -13,13 +13,50 @@ use JeroenG\LaravelAuth\Models\Permission;
 class EloquentPermissionRepository implements PermissionRepository {
 	
 	/**
-	 * Get all permissions
+	 * Retrieve all permissions, available in different formats.
 	 *
-	 * @return object
+	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @return mixed
 	 **/
-	public function all()
+	public function all($format)
 	{
-		return Permission::all();
+		switch ($format) {
+			case 'object':
+				return Permission::all();
+
+			case 'array':
+				return Permission::all()->toArray();
+			
+			case 'json':
+				return Permission::all()->toJson();
+
+			case 'text':
+				$permissions = Permission::all();
+				$permissionsArray = $permissions->toArray();
+				$string = '';
+				$count =  count($permissionsArray);
+				// These three lines are for setting the pointer to the last element of the array...
+				end($permissionsArray);
+				// Then save the key number of that element.
+				$last = max(array_keys($permissionsArray));
+
+				//var_dump($last);
+				for ($i=0; $i < $count; $i++)
+				{
+					if ($i == $last)
+					{
+						$string .= $permissions[$i]->name . '.';
+					}
+					else
+					{
+						$string .= $permissions[$i]->name . ', ';
+					}
+				}
+				return $string;
+
+			default:
+				return Permission::all();
+		}
 	}
 
 	/**
@@ -38,7 +75,6 @@ class EloquentPermissionRepository implements PermissionRepository {
 	 *
 	 * @param string $permissionName Name of the permission.
 	 * @param text $description Description of the permission (max 255 characters).
-	 * @param smallint $level The importance of the permission (in comparison to others).
 	 * @return void
 	 **/
 	public function addPermission($permissionName, $description)

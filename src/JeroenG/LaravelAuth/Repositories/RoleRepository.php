@@ -12,11 +12,12 @@
 interface RoleRepository {
 	
 	/**
-	 * Get all roles
+	 * Retrieve all roles, available in different formats.
 	 *
-	 * @return object
+	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @return mixed
 	 **/
-	public function all();
+	public function all($format);
 
 	/**
 	 * Find the role with the given id.

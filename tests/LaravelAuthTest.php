@@ -183,20 +183,20 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     public function testGettingRoles()
     {
         // Array
-        $output_array = \Auth::roles('array');
+        $output_array = \Auth::allRoles('array');
         $this->assertContains('Admin', $output_array[0], "Getting the roles as array failed");
 
         // Json
         $json = json_encode($output_array);
-        $output_json = \Auth::roles('json');
+        $output_json = \Auth::allRoles('json');
         $this->assertJsonStringEqualsJsonString($json, $output_json, "Getting the roles as json failed");
 
         // Object
-        $output_object = \Auth::roles('object');
+        $output_object = \Auth::allRoles('object');
         $this->assertContains('Admin', $output_object[0]->name, "Getting the roles as object failed");
 
         // Text
-        $output_text = \Auth::roles('text');
+        $output_text = \Auth::allRoles('text');
         $this->assertContains('Admin', $output_text, "Getting the roles as text failed");
     }
 
@@ -208,20 +208,20 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     public function testGettingPermissions()
     {
         // Array
-        $output_array = \Auth::permissions('array');
+        $output_array = \Auth::allPermissions('array');
         $this->assertContains('edit', $output_array[0], "Getting the permissions as array failed");
 
         // Json
         $json = json_encode($output_array);
-        $output_json = \Auth::permissions('json');
+        $output_json = \Auth::allPermissions('json');
         $this->assertJsonStringEqualsJsonString($json, $output_json, "Getting the permissions as json failed");
 
         // Object
-        $output_object = \Auth::permissions('object');
+        $output_object = \Auth::allPermissions('object');
         $this->assertContains('edit', $output_object[0]->name, "Getting the permissions as object failed");
 
         // Text
-        $output_text = \Auth::permissions('text');
+        $output_text = \Auth::allPermissions('text');
         $this->assertContains('edit', $output_text, "Getting the permissions as text failed");
     }
 

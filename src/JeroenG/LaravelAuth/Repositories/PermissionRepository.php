@@ -12,11 +12,12 @@
 interface PermissionRepository {
 	
 	/**
-	 * Get all permissions
+	 * Retrieve all permissions, available in different formats.
 	 *
-	 * @return object
+	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @return mixed
 	 **/
-	public function all();
+	public function all($format);
 
 	/**
 	 * Find the permission with the given id.
@@ -31,7 +32,7 @@ interface PermissionRepository {
 	 *
 	 * @param string $permissionName Name of the permission.
 	 * @param text $description Description of the permission (max 255 characters).
-	 * @param smallint $level The importance of the permission (in comparison to others).
+	 * @param int $level The importance of the permission (in comparison to others).
 	 * @return void
 	 **/
 	public function addPermission($permissionName, $description);

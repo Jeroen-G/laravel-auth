@@ -13,13 +13,50 @@ use JeroenG\LaravelAuth\Models\Role;
 class EloquentRoleRepository implements RoleRepository {
 	
 	/**
-	 * Get all roles
+	 * Retrieve all roles, available in different formats.
 	 *
-	 * @return object
+	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @return mixed
 	 **/
-	public function all()
+	public function all($format)
 	{
-		return Role::all();
+		switch ($format) {
+			case 'object':
+				return Role::all();
+
+			case 'array':
+				return Role::all()->toArray();
+			
+			case 'json':
+				return Role::all()->toJson();
+
+			case 'text':
+				$roles = Role::all();
+				$rolesArray = $roles->toArray();
+				$string = '';
+				$count =  count($rolesArray);
+				// These three lines are for setting the pointer to the last element of the array...
+				end($rolesArray);
+				// Then save the key number of that element.
+				$last = max(array_keys($rolesArray));
+
+				//var_dump($last);
+				for ($i=0; $i < $count; $i++)
+				{
+					if ($i == $last)
+					{
+						$string .= $roles[$i]->name . '.';
+					}
+					else
+					{
+						$string .= $roles[$i]->name . ', ';
+					}
+				}
+				return $string;
+
+			default:
+				return Role::all();
+		}
 	}
 
 	/**
@@ -38,7 +75,7 @@ class EloquentRoleRepository implements RoleRepository {
 	 *
 	 * @param string $roleName Name of the role.
 	 * @param text $description Description of the role (max 255 characters).
-	 * @param smallint $level The importance of the role (in comparison to others).
+	 * @param int $level The importance of the role (in comparison to others).
 	 * @return void
 	 **/
 	public function addRole($roleName, $description, $level)

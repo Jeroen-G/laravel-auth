@@ -52,45 +52,9 @@ class Guard extends \Illuminate\Auth\Guard {
 	 * @param string $format The preferred format of the output: object, array (default), json or text.
 	 * @return mixed
 	 **/
-	public function roles($format = 'array')
+	public function allRoles($format = 'array')
 	{
-		switch ($format) {
-			case 'object':
-				return $this->roles->all();
-
-			case 'array':
-				return $this->roles->all()->toArray();
-			
-			case 'json':
-				return $this->roles->all()->toJson();
-
-			case 'text':
-				$roles = $this->roles->all();
-				$rolesArray = $roles->toArray();
-				$string = '';
-				$count =  count($rolesArray);
-				// These three lines are for setting the pointer to the last element of the array...
-				end($rolesArray);
-				// Then save the key number of that element.
-				$last = max(array_keys($rolesArray));
-
-				//var_dump($last);
-				for ($i=0; $i < $count; $i++)
-				{
-					if ($i == $last)
-					{
-						$string .= $roles[$i]->name . '.';
-					}
-					else
-					{
-						$string .= $roles[$i]->name . ', ';
-					}
-				}
-				return $string;
-
-			default:
-				return $this->roles->all();
-		}
+		return $this->roles->all($format);
 	}
 
 	/**
@@ -99,45 +63,9 @@ class Guard extends \Illuminate\Auth\Guard {
 	 * @param string $format The preferred format of the output: object, array (default), json or text.
 	 * @return mixed
 	 **/
-	public function permissions($format = 'array')
+	public function allPermissions($format = 'array')
 	{
-		switch ($format) {
-			case 'object':
-				return $this->permissions->all();
-
-			case 'array':
-				return $this->permissions->all()->toArray();
-			
-			case 'json':
-				return $this->permissions->all()->toJson();
-
-			case 'text':
-				$permissions = $this->permissions->all();
-				$permissionsArray = $permissions->toArray();
-				$string = '';
-				$count =  count($permissionsArray);
-				// These three lines are for setting the pointer to the last element of the array...
-				end($permissionsArray);
-				// Then save the key number of that element.
-				$last = max(array_keys($permissionsArray));
-
-				//var_dump($last);
-				for ($i=0; $i < $count; $i++)
-				{
-					if ($i == $last)
-					{
-						$string .= $permissions[$i]->name . '.';
-					}
-					else
-					{
-						$string .= $permissions[$i]->name . ', ';
-					}
-				}
-				return $string;
-
-			default:
-				return $this->permissions->all();
-		}
+		return $this->permissions->all($format);
 	}
 
 	/**
@@ -345,7 +273,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	 * 
 	 * @param string $roleName The name of the role.
 	 * @param text $description The description of the role.
-	 * @param smallint $level Defines the importance of the role. Default is 0.
+	 * @param int $level Defines the importance of the role. Default is 0.
 	 * @return void
 	 **/
 	public function addRole($roleName, $description, $level = 0)
