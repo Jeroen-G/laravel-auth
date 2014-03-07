@@ -282,6 +282,18 @@ class Guard extends \Illuminate\Auth\Guard {
 	}
 
 	/**
+	 * Check if a user already exists.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
+	 * @return boolean
+	 **/
+	public function userExists($userId, $withTrashed = false)
+	{
+		return $this->users->exists($userId, $withTrashed);
+	}
+
+	/**
 	 * Add a new role.
 	 * 
 	 * @param string $roleName The name of the role.
@@ -295,7 +307,7 @@ class Guard extends \Illuminate\Auth\Guard {
 		{
 			return $this->roles->addRole($roleName, $description, $level);
 		}
-		throw new \InvalidArgumentException("Role doesn't exist");
+		throw new \InvalidArgumentException("Role doesn't exist or is soft-deleted");
 	}
 
 	/**
@@ -313,6 +325,24 @@ class Guard extends \Illuminate\Auth\Guard {
 		}
 		throw new \InvalidArgumentException("Permission doesn't exist or is soft-deleted");
 	}
+
+	/**
+	 * Add a new user.
+	 * 
+	 * @param string $username The name of the user.
+	 * @param string $password The password of the user.
+	 * @param string $email The email of the user.
+	 * @return void
+	 **/
+	public function addUser($username, $password, $email)
+	{
+		if( ! $this->users->nameExists($username, true) and ! $this->users->emailExists($email, true))
+		{
+			return $this->users->addUser($username, $password, $email);
+		}
+		throw new \InvalidArgumentException("User doesn't exist, the username/email is already used, or the user is soft-deleted");
+	}
+
 	/**
 	 * Delete a role.
 	 * 
@@ -354,13 +384,16 @@ class Guard extends \Illuminate\Auth\Guard {
 	 * 
 	 * When $withForce is set to true, the removal cannot be undone. If set to false it can be undone.
 	 *
-	 * @todo code this stuff.
 	 * @param int $userId The id of the user.
 	 * @param boolean $withForce Should it be really deleted?
 	 * @return void
 	 **/
 	public function deleteUser($userId, $withForce = false)
 	{
-		# code...
+		if($this->users->exists($userId, true))
+		{
+			return $this->users->deleteUser($userId, $withForce);
+		}
+		throw new \InvalidArgumentException("User doesn't exist");
 	}
 }

@@ -296,6 +296,17 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     }
 
     /**
+     * Test if a user exists
+     *
+     * @test
+     */
+    public function testUserExists()
+    {
+        $output = \Auth::userExists(2);
+        $this->assertTrue($output);
+    }
+
+    /**
      * Test adding a role
      *
      * @test
@@ -316,6 +327,18 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     {
         \Auth::addPermission('delete', 'Ability to delete items');
         $output = \Auth::permissionExists('delete');
+        $this->assertTrue($output);
+    }
+
+    /**
+     * Test adding a user
+     *
+     * @test
+     */
+    public function testAddUser()
+    {
+        \Auth::addUser('qwerty', 'Password123', 'qwerty@internet.com');
+        $output = \Auth::UserExists(3);
         $this->assertTrue($output);
     }
 
@@ -348,7 +371,7 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     public function testDeletePermission()
     {
         \Auth::addPermission('delete', 'Ability to delete items');
-        
+
         \Auth::deletePermission('delete', false);
         $output = \Auth::permissionExists('delete', false);
         $this->assertFalse($output);
@@ -358,6 +381,25 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
 
         \Auth::deletePermission('delete', true);
         $output = \Auth::permissionExists('delete', true);
+        $this->assertFalse($output);
+    }
+
+    /**
+     * Test deleting a user
+     *
+     * @test
+     */
+    public function testDeleteUser()
+    {
+        \Auth::deleteUser(2, false);
+        $output = \Auth::userExists(2, false);
+        $this->assertFalse($output);
+
+        $output = \Auth::userExists(2, true);
+        $this->assertTrue($output);
+
+        \Auth::deleteUser(2, true);
+        $output = \Auth::userExists(2, true);
         $this->assertFalse($output);
     }
 }

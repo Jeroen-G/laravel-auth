@@ -35,13 +35,102 @@ class EloquentUserRepository implements UserRepository {
 
 	/**
 	 * Create a new user.
-	 *
-	 * @param array $input Things like username, password and email.
+	 * 
+	 * @param string $username The name of the user.
+	 * @param string $password The password of the user.
+	 * @param string $email The email of the user.
 	 * @return void
 	 **/
-	public function create($input)
+	public function addUser($username, $password, $email)
 	{
-		return User::create($input);
+		$date = new \DateTime;
+
+		$user = new User;
+		$user->username = $username;
+		$user->password = \Hash::make($password);
+		$user->email = $email;
+		$this->created_at = $date;
+		$this->updated_at = $date;
+		return $user->save();
+	}
+
+	/**
+	 * Delete a user.
+	 * 
+	 * When $withForce is set to true, the removal cannot be undone. If set to false it can be undone.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param boolean $withForce Should it be really deleted?
+	 * @return void
+	 **/
+	public function deleteUser($userId, $withForce = false)
+	{
+		$user = User::withTrashed()->where('id', '=', $userId)->first();
+		if($withForce)
+		{
+			return $user->forceDelete();
+		}
+		return $user->delete();
+	}
+
+	/**
+	 * Check if a user already exists.
+	 *
+	 * @param int $userId The id of the user.
+	 * @param boolean $withTrashed Should soft-deleted entries be included?
+	 * @return boolean
+	 **/
+	public function exists($userId, $withTrashed)
+	{
+		if($withTrashed)
+		{
+			$count = User::withTrashed()->where('id', '=', $userId)->count();
+			if($count == 1) return true;
+			return false;
+		}
+		$count = User::where('id', '=', $userId)->count();
+		if($count == 1) return true;
+		return false;
+	}
+
+	/**
+	 * Check if a username already exists.
+	 *
+	 * @param string $username The name of the user.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
+	 * @return boolean
+	 **/
+	public function NameExists($username, $withTrashed)
+	{
+		if($withTrashed)
+		{
+			$count = User::withTrashed()->where('username', '=', $username)->count();
+			if($count == 1) return true;
+			return false;
+		}
+		$count = User::where('username', '=', $username)->count();
+		if($count == 1) return true;
+		return false;
+	}
+
+	/**
+	 * Check if a email is already used.
+	 *
+	 * @param string $email The email of the user.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
+	 * @return boolean
+	 **/
+	public function emailExists($email, $withTrashed)
+	{
+		if($withTrashed)
+		{
+			$count = User::withTrashed()->where('email', '=', $email)->count();
+			if($count == 1) return true;
+			return false;
+		}
+		$count = User::where('email', '=', $email)->count();
+		if($count == 1) return true;
+		return false;
 	}
 
 	/**
