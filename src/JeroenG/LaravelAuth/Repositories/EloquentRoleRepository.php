@@ -15,7 +15,7 @@ class EloquentRoleRepository implements RoleRepository {
 	/**
 	 * Retrieve all roles, available in different formats.
 	 *
-	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @param string $format The preferred format of the output: object, array (default), json.
 	 * @return mixed
 	 **/
 	public function all($format)
@@ -29,30 +29,6 @@ class EloquentRoleRepository implements RoleRepository {
 			
 			case 'json':
 				return Role::all()->toJson();
-
-			case 'text':
-				$roles = Role::all();
-				$rolesArray = $roles->toArray();
-				$string = '';
-				$count =  count($rolesArray);
-				// These three lines are for setting the pointer to the last element of the array...
-				end($rolesArray);
-				// Then save the key number of that element.
-				$last = max(array_keys($rolesArray));
-
-				//var_dump($last);
-				for ($i=0; $i < $count; $i++)
-				{
-					if ($i == $last)
-					{
-						$string .= $roles[$i]->name . '.';
-					}
-					else
-					{
-						$string .= $roles[$i]->name . ', ';
-					}
-				}
-				return $string;
 
 			default:
 				return Role::all();

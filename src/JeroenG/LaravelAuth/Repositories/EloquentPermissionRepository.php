@@ -15,7 +15,7 @@ class EloquentPermissionRepository implements PermissionRepository {
 	/**
 	 * Retrieve all permissions, available in different formats.
 	 *
-	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @param string $format The preferred format of the output: object, array (default), json.
 	 * @return mixed
 	 **/
 	public function all($format)
@@ -29,30 +29,6 @@ class EloquentPermissionRepository implements PermissionRepository {
 			
 			case 'json':
 				return Permission::all()->toJson();
-
-			case 'text':
-				$permissions = Permission::all();
-				$permissionsArray = $permissions->toArray();
-				$string = '';
-				$count =  count($permissionsArray);
-				// These three lines are for setting the pointer to the last element of the array...
-				end($permissionsArray);
-				// Then save the key number of that element.
-				$last = max(array_keys($permissionsArray));
-
-				//var_dump($last);
-				for ($i=0; $i < $count; $i++)
-				{
-					if ($i == $last)
-					{
-						$string .= $permissions[$i]->name . '.';
-					}
-					else
-					{
-						$string .= $permissions[$i]->name . ', ';
-					}
-				}
-				return $string;
 
 			default:
 				return Permission::all();

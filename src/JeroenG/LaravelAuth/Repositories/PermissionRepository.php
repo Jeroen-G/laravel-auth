@@ -14,7 +14,7 @@ interface PermissionRepository {
 	/**
 	 * Retrieve all permissions, available in different formats.
 	 *
-	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @param string $format The preferred format of the output: object, array (default), json.
 	 * @return mixed
 	 **/
 	public function all($format);

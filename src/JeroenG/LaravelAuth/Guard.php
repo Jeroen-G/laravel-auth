@@ -49,7 +49,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Retrieve all roles, available in different formats.
 	 *
-	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @param string $format The preferred format of the output: object, array (default), json.
 	 * @return mixed
 	 **/
 	public function allRoles($format = 'array')
@@ -60,7 +60,7 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Retrieve all permissions, available in different formats.
 	 *
-	 * @param string $format The preferred format of the output: object, array (default), json or text.
+	 * @param string $format The preferred format of the output: object, array (default), json.
 	 * @return mixed
 	 **/
 	public function allPermissions($format = 'array')
