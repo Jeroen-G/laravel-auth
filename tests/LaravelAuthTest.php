@@ -272,4 +272,92 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         $output = \Auth::can('edit', 1);
         $this->assertFalse($output);
     }
+
+    /**
+     * Test if a role exists
+     *
+     * @test
+     */
+    public function testRoleExists()
+    {
+        $output = \Auth::roleExists('Admin');
+        $this->assertTrue($output);
+    }
+
+    /**
+     * Test if a permission exists
+     *
+     * @test
+     */
+    public function testPermissionExists()
+    {
+        $output = \Auth::permissionExists('edit');
+        $this->assertTrue($output);
+    }
+
+    /**
+     * Test adding a role
+     *
+     * @test
+     */
+    public function testAddRole()
+    {
+        \Auth::addRole('Member', 'Member of the club', 1);
+        $output = \Auth::roleExists('Member');
+        $this->assertTrue($output);
+    }
+
+    /**
+     * Test adding a permission
+     *
+     * @test
+     */
+    public function testAddPermission()
+    {
+        \Auth::addPermission('delete', 'Ability to delete items');
+        $output = \Auth::permissionExists('delete');
+        $this->assertTrue($output);
+    }
+
+    /**
+     * Test deleting a role
+     *
+     * @test
+     */
+    public function testDeleteRole()
+    {
+        \Auth::addRole('Member', 'Member of the club', 1);
+
+        \Auth::deleteRole('Member', false);
+        $output = \Auth::roleExists('Member', false);
+        $this->assertFalse($output);
+
+        $output = \Auth::roleExists('Member', true);
+        $this->assertTrue($output);
+
+        \Auth::deleteRole('Member', true);
+        $output = \Auth::roleExists('Member', true);
+        $this->assertFalse($output);
+    }
+
+    /**
+     * Test deleting a permission
+     *
+     * @test
+     */
+    public function testDeletePermission()
+    {
+        \Auth::addPermission('delete', 'Ability to delete items');
+        
+        \Auth::deletePermission('delete', false);
+        $output = \Auth::permissionExists('delete', false);
+        $this->assertFalse($output);
+
+        $output = \Auth::permissionExists('delete', true);
+        $this->assertTrue($output);
+
+        \Auth::deletePermission('delete', true);
+        $output = \Auth::permissionExists('delete', true);
+        $this->assertFalse($output);
+    }
 }
