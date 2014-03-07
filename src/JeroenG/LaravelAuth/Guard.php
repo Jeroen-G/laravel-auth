@@ -286,10 +286,10 @@ class Guard extends \Illuminate\Auth\Guard {
 	 * 
 	 * @param string $roleName The name of the role.
 	 * @param text $description The description of the role.
-	 * @param smallint $level Defines the importance of the role.
+	 * @param smallint $level Defines the importance of the role. Default is 0.
 	 * @return void
 	 **/
-	public function addRole($roleName, $description, $level)
+	public function addRole($roleName, $description, $level = 0)
 	{
 		if( ! $this->roles->exists($roleName, true))
 		{
