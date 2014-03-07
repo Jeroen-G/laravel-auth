@@ -60,17 +60,6 @@ class EloquentRoleRepository implements RoleRepository {
 	}
 
 	/**
-	 * Find the role with the given id.
-	 *
-	 * @param int $id The id of the role.
-	 * @return object
-	 **/
-	public function find($id)
-	{
-		return Role::find($id);
-	}
-
-	/**
 	 * Create a new role.
 	 *
 	 * @param string $roleName Name of the role.

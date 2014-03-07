@@ -58,18 +58,7 @@ class EloquentPermissionRepository implements PermissionRepository {
 				return Permission::all();
 		}
 	}
-
-	/**
-	 * Find the permission with the given id.
-	 *
-	 * @param int $id The id of the permission.
-	 * @return object
-	 **/
-	public function find($id)
-	{
-		return Permission::find($id);
-	}
-
+	
 	/**
 	 * Create a new permission.
 	 *

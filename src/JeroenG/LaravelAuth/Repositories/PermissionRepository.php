@@ -20,14 +20,6 @@ interface PermissionRepository {
 	public function all($format);
 
 	/**
-	 * Find the permission with the given id.
-	 *
-	 * @param int $id The id of the permission.
-	 * @return object
-	 **/
-	public function find($id);
-
-	/**
 	 * Create a new permission.
 	 *
 	 * @param string $permissionName Name of the permission.
