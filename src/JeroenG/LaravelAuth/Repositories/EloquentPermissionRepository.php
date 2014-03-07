@@ -36,12 +36,40 @@ class EloquentPermissionRepository implements PermissionRepository {
 	/**
 	 * Create a new permission.
 	 *
-	 * @param array $input Name and description.
+	 * @param string $permissionName Name of the permission.
+	 * @param text $description Description of the permission (max 255 characters).
+	 * @param smallint $level The importance of the permission (in comparison to others).
 	 * @return void
 	 **/
-	public function create($input)
+	public function addPermission($permissionName, $description)
 	{
-		return Permission::create($input);
+		$date = new \DateTime;
+
+		$permission = new Permission;
+		$permission->name = $permissionName;
+		$permission->description = $description;
+		$this->created_at = $date;
+		$this->updated_at = $date;
+		return $permission->save();
+	}
+
+	/**
+	 * Delete a permission.
+	 * 
+	 * When $withForce is set to true, the removal cannot be undone. If set to false it can be undone.
+	 *
+	 * @param string $permissionName The name of the permission.
+	 * @param boolean $withForce Should it be really deleted?
+	 * @return void
+	 **/
+	public function deletePermission($permissionName, $withForce = false)
+	{
+		$permission = Permission::withTrashed()->where('name', '=', $permissionName)->first();
+		if($withForce)
+		{
+			return $permission->forceDelete();
+		}
+		return $permission->delete();
 	}
 
 	/**
@@ -52,6 +80,27 @@ class EloquentPermissionRepository implements PermissionRepository {
 	 **/
 	public function getPermissionId($permissionName)
 	{
-		return Permission::select('id')->where('name', $permissionName)->first();
+		return Permission::select('id')->where('name', '=', $permissionName)->first();
+	}
+
+	/**
+	 * Check if a permission already exists.
+	 *
+	 * @param string $permissionName The name of the permission as it is in the database.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
+	 * @return boolean
+	 **/
+	public function exists($permissionName, $withTrashed)
+	{
+		if($withTrashed)
+		{
+			$count = Permission::withTrashed()->where('name', '=', $permissionName)->count();
+			if($count == 1) return true;
+			return false;
+		}
+
+		$count = Permission::where('name', '=', $permissionName)->count();
+		if($count == 1) return true;
+		return false;
 	}
 }

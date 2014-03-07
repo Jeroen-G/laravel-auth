@@ -256,4 +256,111 @@ class Guard extends \Illuminate\Auth\Guard {
 			$this->users->takePermission($userId, $permissionId);
 		}
 	}
+
+	/**
+	 * Check if a role already exists.
+	 *
+	 * @param string $roleName The name of the role as it is in the database.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
+	 * @return boolean
+	 **/
+	public function roleExists($roleName, $withTrashed = false)
+	{
+		return $this->roles->exists($roleName, $withTrashed);
+	}
+
+	/**
+	 * Check if a permission already exists.
+	 *
+	 * @param string $permissionName The name of the permission as it is in the database.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
+	 * @return boolean
+	 **/
+	public function permissionExists($permissionName, $withTrashed = false)
+	{
+		return $this->permissions->exists($permissionName, $withTrashed);
+	}
+
+	/**
+	 * Add a new role.
+	 * 
+	 * @param string $roleName The name of the role.
+	 * @param text $description The description of the role.
+	 * @param smallint $level Defines the importance of the role.
+	 * @return void
+	 **/
+	public function addRole($roleName, $description, $level)
+	{
+		if( ! $this->roles->exists($roleName, true))
+		{
+			return $this->roles->addRole($roleName, $description, $level);
+		}
+		throw new \InvalidArgumentException("Role doesn't exist");
+	}
+
+	/**
+	 * Add a new permission.
+	 * 
+	 * @param string $permissionName The name of the permission.
+	 * @param text $description The description of the permission.
+	 * @return void
+	 **/
+	public function addPermission($permissionName, $description)
+	{
+		if( ! $this->permissions->exists($permissionName, true))
+		{
+			return $this->permissions->addPermission($permissionName, $description);
+		}
+		throw new \InvalidArgumentException("Permission doesn't exist or is soft-deleted");
+	}
+	/**
+	 * Delete a role.
+	 * 
+	 * When $withForce is set to true, the removal cannot be undone. If set to false it can be undone.
+	 *
+	 * @param string $roleName The name of the role.
+	 * @param boolean $withForce Should it be really deleted?
+	 * @return void
+	 **/
+	public function deleteRole($roleName, $withForce = false)
+	{
+		if($this->roles->exists($roleName, true))
+		{
+			return $this->roles->deleteRole($roleName, $withForce);
+		}
+		throw new \InvalidArgumentException("Role doesn't exist");
+	}
+
+	/**
+	 * Delete a permission.
+	 * 
+	 * When $withForce is set to true, the removal cannot be undone. If set to false it can be undone.
+	 *
+	 * @param string $permissionName The name of the permission.
+	 * @param boolean $withForce Should it be really deleted?
+	 * @return void
+	 **/
+	public function deletePermission($permissionName, $withForce = false)
+	{
+		if($this->permissions->exists($permissionName, true))
+		{
+			return $this->permissions->deletePermission($permissionName, $withForce);
+		}
+		throw new \InvalidArgumentException("Permission doesn't exist");
+	}
+
+	/**
+	 * Delete a user.
+	 * 
+	 * When $withForce is set to true, the removal cannot be undone. If set to false it can be undone.
+	 *
+	 * @todo code this stuff.
+	 * @param int $userId The id of the user.
+	 * @param boolean $withForce Should it be really deleted?
+	 * @return void
+	 **/
+	public function deleteUser($userId, $withForce = false)
+	{
+		# code...
+	}
 }

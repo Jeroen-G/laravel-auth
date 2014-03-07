@@ -29,10 +29,12 @@ interface RoleRepository {
 	/**
 	 * Create a new role.
 	 *
-	 * @param array $input Name and description.
+	 * @param string $roleName Name of the role.
+	 * @param text $description Description of the role (max 255 characters).
+	 * @param smallint $level The importance of the role (in comparison to others).
 	 * @return void
 	 **/
-	public function create($input);
+	public function addRole($roleName, $description, $level);
 
 	/**
 	 * Get the id of the role with the given name.
@@ -41,4 +43,13 @@ interface RoleRepository {
 	 * @return void
 	 **/
 	public function getRoleId($roleName);
+
+	/**
+	 * Check if a role already exists.
+	 *
+	 * @param string $roleName The name of the role as it is in the database.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
+	 * @return boolean
+	 **/
+	public function exists($roleName, $withTrashed);
 }
