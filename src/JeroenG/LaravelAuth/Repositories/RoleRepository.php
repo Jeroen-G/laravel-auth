@@ -52,4 +52,31 @@ interface RoleRepository {
 	 * @return boolean
 	 **/
 	public function exists($roleName, $withTrashed);
+
+	/**
+	 * Find out if a role has a certain permission.
+	 *
+	 * @param string $roleId The id of the role.
+	 * @param string $permissionId The permission's id to look for.
+	 * @return boolean
+	 **/
+	public function hasPermission($roleId, $permissionId);
+
+	/**
+	 * Assign a role a new permission.
+	 *
+	 * @param int $roleId The id of the role.
+	 * @param int $permissionId The id of the permission.
+	 * @return void
+	 **/
+	public function givePermission($roleId, $permissionId);
+
+	/**
+	 * Remove a permission from a role.
+	 *
+	 * @param int $roleId The id of the role.
+	 * @param int $permissionId The id of the permission.
+	 * @return void
+	 **/
+	public function takePermission($roleId, $permissionId);
 }

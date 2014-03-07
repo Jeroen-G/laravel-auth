@@ -250,6 +250,18 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     }
 
     /**
+     * Test giving the Admin role a permission.
+     *
+     * @test
+     */
+    public function testGivingPermissionToRole()
+    {
+        \Auth::giveRolePermission('edit', 'Admin');
+        $output = \Auth::roleCan('Admin', 'edit');
+        $this->assertTrue($output);
+    }
+
+    /**
      * Test taking the second user a role.
      *
      * @test
@@ -270,6 +282,20 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     {
         \Auth::takePermission('edit', 1);
         $output = \Auth::can('edit', 1);
+        $this->assertFalse($output);
+    }
+
+    /**
+     * Test taking a permission from the Admin role.
+     *
+     * @test
+     */
+    public function testTakingPermissionFromRole()
+    {
+        \Auth::giveRolePermission('edit', 'Admin');
+
+        \Auth::takeRolePermission('edit', 'Admin');
+        $output = \Auth::roleCan('Admin', 'edit');
         $this->assertFalse($output);
     }
 

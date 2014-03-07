@@ -177,6 +177,24 @@ class Guard extends \Illuminate\Auth\Guard {
 	}
 
 	/**
+	 * Find out if a role has a certain permission.
+	 *
+	 * @param string $roleName The name of the role.
+	 * @param string $permissionName The permission to look for.
+	 * @return boolean
+	 **/
+	public function roleCan($roleName, $permissionName)
+	{
+		$permissionId = $this->permissions->getPermissionId($permissionName);
+		$roleId = $this->roles->getRoleId($roleName);
+		if($this->roles->hasPermission($roleId->id, $permissionId->id))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Find out if the user has a certain role.
 	 *
 	 * @param int $userId The id of the user, if null is given the user logged in is used.
@@ -211,8 +229,8 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Assign a user a new permission.
 	 *
-	 * @param int $userId The id of the user, if null is given the user logged in is used.
 	 * @param string $permissionName The name of the permission.
+	 * @param int $userId The id of the user, if null is given the user logged in is used.
 	 * @return void
 	 **/
 	public function givePermission($permissionName, $userId = null)
@@ -224,10 +242,25 @@ class Guard extends \Illuminate\Auth\Guard {
 	}
 
 	/**
+	 * Assign a role a new permission.
+	 *
+	 * @param string $roleName The id of the role.
+	 * @param string $permissionName The id of the permission.
+	 * @return void
+	 **/
+	public function giveRolePermission($permissionName, $roleName)
+	{
+		if($this->roleCan($roleName, $permissionName)) return;
+		$permissionId = $this->permissions->getPermissionId($permissionName);
+		$roleId = $this->roles->getRoleId($roleName);
+		$this->roles->givePermission($roleId->id, $permissionId);
+	}
+
+	/**
 	 * Remove a role from a user.
 	 *
+	 * @param string $roleName The name of the role.
 	 * @param int $userId The id of the user, if null is given the user logged in is used.
-	 * @param int $roleId The id of the role.
 	 * @return void
 	 **/
 	public function takeRole($roleName, $userId = null)
@@ -243,8 +276,8 @@ class Guard extends \Illuminate\Auth\Guard {
 	/**
 	 * Remove a permission from a user.
 	 *
+	 * @param string $permissionName The name of the permission.
 	 * @param int $userId The id of the user, if null is given the user logged in is used.
-	 * @param int $permissionId The id of the permission.
 	 * @return void
 	 **/
 	public function takePermission($permissionName, $userId = null)
@@ -255,6 +288,20 @@ class Guard extends \Illuminate\Auth\Guard {
 			$permissionId = $this->permissions->getPermissionId($permissionName);
 			$this->users->takePermission($userId, $permissionId);
 		}
+	}
+
+	/**
+	 * Remove a permission from a role.
+	 *
+	 * @param int $roleName The name of the role.
+	 * @param int $permissionName The name of the permission.
+	 * @return void
+	 **/
+	public function takeRolePermission($permissionName, $roleName)
+	{
+		$permissionId = $this->permissions->getPermissionId($permissionName);
+		$roleId = $this->roles->getRoleId($roleName);
+		$this->roles->takePermission($roleId->id, $permissionId);
 	}
 
 	/**

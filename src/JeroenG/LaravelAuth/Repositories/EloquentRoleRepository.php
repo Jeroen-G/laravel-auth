@@ -104,4 +104,50 @@ class EloquentRoleRepository implements RoleRepository {
 		if($count == 1) return true;
 		return false;
 	}
+
+	/**
+	 * Find out if a role has a certain permission.
+	 *
+	 * @param int $roleId The id of the role.
+	 * @param int $permissionId The permission's id to look for.
+	 * @return boolean
+	 **/
+	public function hasPermission($roleId, $permissionId)
+	{
+		$permissions = Role::find($roleId)->permissions;
+		foreach ($permissions as $entry)
+		{
+			if($entry->id == $permissionId)
+			{
+				return true;
+			}
+			return false;
+		}
+	}
+
+	/**
+	 * Assign a role a new permission.
+	 *
+	 * @param int $roleId The id of the role.
+	 * @param int $permissionId The id of the permission.
+	 * @return void
+	 **/
+	public function givePermission($roleId, $permissionId)
+	{
+		$role = Role::find($roleId);
+		return $role->permissions()->attach($permissionId);
+	}
+
+	/**
+	 * Remove a permission from a role.
+	 *
+	 * @param int $roleId The id of the role.
+	 * @param int $permissionId The id of the permission.
+	 * @return void
+	 **/
+	public function takePermission($roleId, $permissionId)
+	{
+		$role = Role::find($roleId);
+		return $role->permissions()->detach($permissionId);
+	}
 }
