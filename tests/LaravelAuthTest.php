@@ -239,8 +239,27 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
         // Object
         $output_object = \Auth::allPermissions('object');
         $this->assertContains('edit', $output_object[0]->name, "Getting the permissions as object failed");
+    }
 
-        // Default
+    /**
+     * Test if all of the users can be received.
+     *
+     * @test
+     */
+    public function testGettingUsers()
+    {
+        // Array
+        $output_array = \Auth::allUsers('array');
+        $this->assertContains('edit', $output_array[0], "Getting the users as array failed");
+
+        // Json
+        $json = json_encode($output_array);
+        $output_json = \Auth::allUsers('json');
+        $this->assertJsonStringEqualsJsonString($json, $output_json, "Getting the users as json failed");
+
+        // Object
+        $output_object = \Auth::allUsers('object');
+        $this->assertContains('edit', $output_object[0]->name, "Getting the users as object failed");
     }
 
     /**

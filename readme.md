@@ -60,12 +60,14 @@ Route::filter('auth.admin', function()
 });
 ```
 
-### Getting all of the available roles/permissions ###
+### Getting all of the available roles/permissions/users ###
 
 ```php
-Auth::roles();
+Auth::allRoles();
 
-Auth::permissions();
+Auth::allPermissions();
+
+Auth::allUsers();
 ```
 
 Both accept one optional parameter, which is the format of the returned results: array, object or json. By default an array is returned.

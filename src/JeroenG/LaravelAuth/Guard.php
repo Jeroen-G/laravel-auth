@@ -69,6 +69,18 @@ class Guard extends \Illuminate\Auth\Guard {
 	}
 
 	/**
+	 * Retrieve all users, available in different formats.
+	 *
+	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @return mixed
+	 **/
+	public function allUsers($format = 'array')
+	{
+		return $this->users->all($format);
+	}
+
+
+	/**
 	 * Find out if the user has the 'Admin' role.
 	 *
 	 * @param int $userId The id of the user, if null is given the user logged in is used.
