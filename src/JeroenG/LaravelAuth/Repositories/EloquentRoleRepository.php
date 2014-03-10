@@ -16,18 +16,22 @@ class EloquentRoleRepository implements RoleRepository {
 	 * Retrieve all roles, available in different formats.
 	 *
 	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @param boolean $withTrashed Should soft-deleted entries be included?
 	 * @return mixed
 	 **/
-	public function all($format)
+	public function all($format, $withTrashed)
 	{
 		switch ($format) {
 			case 'object':
+				if($withTrashed) return Role::withTrashed()->get()->toArray();
 				return Role::all();
 
 			case 'array':
+				if($withTrashed) return Role::withTrashed()->get()->toArray();
 				return Role::all()->toArray();
 			
 			case 'json':
+				if($withTrashed) return Role::withTrashed()->get()->toArray();
 				return Role::all()->toJson();
 		}
 	}

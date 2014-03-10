@@ -68,9 +68,12 @@ Auth::allRoles();
 Auth::allPermissions();
 
 Auth::allUsers();
+
+//Example of both optional parameter
+Auth::allUsers('json', true);
 ```
 
-Both accept one optional parameter, which is the format of the returned results: array, object or json. By default an array is returned.
+Both accept two optional parameters, which is the format of the returned results: array, object or json. By default an array is returned. The second is a boolean, set this to true if you want to include trashed items.
 
 ### Assigning a role/permission to a user ###
 

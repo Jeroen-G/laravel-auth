@@ -15,9 +15,10 @@ interface UserRepository {
 	 * Get all users
 	 *
 	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @param boolean $withTrashed Should soft-deleted entries be included?
 	 * @return mixed
 	 **/
-	public function all($format);
+	public function all($format, $withTrashed);
 
 	/**
 	 * Find the user with the given id.

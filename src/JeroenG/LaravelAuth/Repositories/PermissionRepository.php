@@ -15,9 +15,10 @@ interface PermissionRepository {
 	 * Retrieve all permissions, available in different formats.
 	 *
 	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @param boolean $withTrashed Should soft-deleted entries be included?
 	 * @return mixed
 	 **/
-	public function all($format);
+	public function all($format, $withTrashed);
 
 	/**
 	 * Create a new permission.

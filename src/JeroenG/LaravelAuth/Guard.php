@@ -50,33 +50,36 @@ class Guard extends \Illuminate\Auth\Guard {
 	 * Retrieve all roles, available in different formats.
 	 *
 	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
 	 * @return mixed
 	 **/
-	public function allRoles($format = 'array')
+	public function allRoles($format = 'array', $withTrashed = false)
 	{
-		return $this->roles->all($format);
+		return $this->roles->all($format, $withTrashed);
 	}
 
 	/**
 	 * Retrieve all permissions, available in different formats.
 	 *
 	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
 	 * @return mixed
 	 **/
-	public function allPermissions($format = 'array')
+	public function allPermissions($format = 'array', $withTrashed = false)
 	{
-		return $this->permissions->all($format);
+		return $this->permissions->all($format, $withTrashed);
 	}
 
 	/**
 	 * Retrieve all users, available in different formats.
 	 *
 	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @param boolean $withTrashed Should soft-deleted entries be included? Default set to false.
 	 * @return mixed
 	 **/
-	public function allUsers($format = 'array')
+	public function allUsers($format = 'array', $withTrashed = false)
 	{
-		return $this->users->all($format);
+		return $this->users->all($format, $withTrashed);
 	}
 
 

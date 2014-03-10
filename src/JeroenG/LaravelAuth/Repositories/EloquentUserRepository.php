@@ -16,18 +16,22 @@ class EloquentUserRepository implements UserRepository {
 	 * Retrieve all users, available in different formats.
 	 *
 	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @param boolean $withTrashed Should soft-deleted entries be included?
 	 * @return mixed
 	 **/
-	public function all($format)
+	public function all($format, $withTrashed)
 	{
 		switch ($format) {
 			case 'object':
+				if($withTrashed) return User::withTrashed()->get();
 				return User::all();
 
 			case 'array':
+				if($withTrashed) return User::withTrashed()->get()->toArray();
 				return User::all()->toArray();
 			
 			case 'json':
+				if($withTrashed) return User::withTrashed()->get()->toJson();
 				return User::all()->toJson();
 		}
 	}
