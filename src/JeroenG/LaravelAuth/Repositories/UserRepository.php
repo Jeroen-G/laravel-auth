@@ -14,9 +14,10 @@ interface UserRepository {
 	/**
 	 * Get all users
 	 *
-	 * @return object
+	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @return mixed
 	 **/
-	public function all();
+	public function all($format);
 
 	/**
 	 * Find the user with the given id.

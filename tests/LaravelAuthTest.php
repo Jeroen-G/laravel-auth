@@ -250,7 +250,7 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
     {
         // Array
         $output_array = \Auth::allUsers('array');
-        $this->assertContains('edit', $output_array[0], "Getting the users as array failed");
+        $this->assertContains('jeroen', $output_array[0], "Getting the users as array failed");
 
         // Json
         $json = json_encode($output_array);
@@ -259,7 +259,7 @@ class LaravelAuthTest extends \Orchestra\Testbench\TestCase
 
         // Object
         $output_object = \Auth::allUsers('object');
-        $this->assertContains('edit', $output_object[0]->name, "Getting the users as object failed");
+        $this->assertContains('jeroen', $output_object[0]->username, "Getting the users as object failed");
     }
 
     /**

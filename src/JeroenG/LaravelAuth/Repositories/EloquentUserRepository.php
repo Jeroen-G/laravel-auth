@@ -13,13 +13,23 @@ use JeroenG\LaravelAuth\Models\User;
 class EloquentUserRepository implements UserRepository {
 	
 	/**
-	 * Get all users
+	 * Retrieve all users, available in different formats.
 	 *
-	 * @return object
+	 * @param string $format The preferred format of the output: object, array (default), json.
+	 * @return mixed
 	 **/
-	public function all()
+	public function all($format)
 	{
-		return User::all();
+		switch ($format) {
+			case 'object':
+				return User::all();
+
+			case 'array':
+				return User::all()->toArray();
+			
+			case 'json':
+				return User::all()->toJson();
+		}
 	}
 
 	/**
