@@ -100,6 +100,7 @@ class Guard extends \Illuminate\Auth\Guard {
 			}
 			return false;
 		}
+		return false;
 	}
 
 	/**
